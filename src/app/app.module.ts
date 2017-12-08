@@ -9,6 +9,7 @@ import { WelcomePage } from '../pages/welcome/welcome';
 
 @NgModule({
   declarations: [
+    // What will I need immediately on load of app...
     MyApp,
     WelcomePage
   ],
