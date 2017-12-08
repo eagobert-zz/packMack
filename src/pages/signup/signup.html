@@ -7,12 +7,32 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>signup</ion-title>
+    <ion-title>Create Profile</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label floating>First Name: </ion-label>
+            <ion-input type="text" placeholder="First Name: "></ion-input>
+          </ion-item>
 
+          <ion-item>
+              <ion-label floating>Last Name: </ion-label>
+              <ion-input type="text" placeholder="Last Name: "></ion-input>
+            </ion-item>
+
+        <ion-item>
+            <ion-label floating>Email: </ion-label>
+            <ion-input type="email" placeholder="Email: "></ion-input>
+          </ion-item>
+        
+          <ion-item>
+            <ion-label floating>Password: </ion-label>
+            <ion-input type="password" placeholder="Password: "></ion-input>
+          </ion-item>
+          <button ion-button round (click) = "signup()">Create Profile</button>
+    </ion-list>
 </ion-content>
