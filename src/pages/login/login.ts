@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-//add import {} from ''; for page to push from login
+import { User } from '../../models/user';
+import { AngularFireAuth } from 'angularfire2/auth';
 
+//add import {} from ''; for page to push from login
+import {HomePage} from '../home/home';
 
 @IonicPage()
 @Component({
@@ -10,16 +13,28 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  user = {} as User;
+
+  constructor(
+    private afAuth: AngularFireAuth,
+    public navCtrl: NavController, 
+    public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
-  login(){
-    //Add how to connect with firebase???
-    //Add page to push to 
-    this.navCtrl.push('');
+  async loginUser(user: User){
+    try {
+      const result = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
+      if(result){
+        this.navCtrl.setRoot('HomePage');
+      }
+      console.log(result);
+    }
+    catch (e) {
+      console.error(e);
+    }
   }
 
 }
