@@ -4,7 +4,7 @@ import { User } from '../../models/user';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 //add import {} from ''; for page to push from login
-import {HomePage} from '../home/home';
+// import {HomePage} from '../home/home';
 
 @IonicPage()
 @Component({
