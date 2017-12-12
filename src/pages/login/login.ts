@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { User } from '../../models/user';
+import { User } from '../../models/user.model';
 import { AngularFireAuth } from 'angularfire2/auth';
 
 //add import {} from ''; for page to push from login

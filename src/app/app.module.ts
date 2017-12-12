@@ -11,9 +11,8 @@ import { WelcomePage } from '../pages/welcome/welcome';
 import { FirebaseConfig } from '../app/app.firebase.config';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-
-// import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
-
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { InventoryListService } from '../services/inventory-list.service';
 
 
 @NgModule({
@@ -25,8 +24,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FirebaseConfig),
-    AngularFireAuthModule
-    // AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -36,7 +35,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
   providers: [
     StatusBar,
     SplashScreen,
-    // AngularFireDatabase,
+    InventoryListService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
