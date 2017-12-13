@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { User } from '../../models/user';
+import { IonicPage, NavController, LoadingController, Loading, AlertController } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AuthProvider } from '../../providers/auth';
+import { EmailValidator } from '../../validators/email-validator';
+import { HomePage } from '../home/home';
 
-//add import {} from ''; for page to push from login
-// import {HomePage} from '../home/home';
 
 @IonicPage()
 @Component({
@@ -14,28 +15,65 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 export class SignupPage {
 
-  user = {} as User;
+  public signupForm: FormGroup;
+  public loading: Loading;
 
   constructor(
-    private afAuth: AngularFireAuth, 
-    public navCtrl: NavController, 
-    public navParams: NavParams) {
+    public afAuth: AngularFireAuth,
+    public authData: AuthProvider,
+    public navCtrl: NavController,
+    public formBuilder: FormBuilder,
+    public alertCtrl: AlertController,
+    public loadingCtrl: LoadingController 
+    ) {
+
+      // this.afAuth.authState.subscribe(userData => {
+      //   console.log(userData);
+      // })
+
+      this.signupForm = formBuilder.group({
+        firstName: ['', ],
+        lastName: ['', ],
+        email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
+        password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
+      });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignupPage');
   }
 
-  async signupUser(user: User){
-    try {
-      const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password);
-      if(result){
-        this.navCtrl.setRoot('HomePage');
-      }
-      console.log(result);
-    }
-    catch (e) {
-      console.error(e);
+  signupUser(){
+    if (!this.signupForm.valid){
+      console.log(this.signupForm.value);
+    } else {
+      this.authData.signupUser(
+        this.signupForm.value.firstName,
+        this.signupForm.value.lastName,
+        this.signupForm.value.email, 
+        this.signupForm.value.password)
+      .then(() => {
+        this.navCtrl.push(HomePage);
+      }, (error) => {
+        this.loading.dismiss().then( () => {
+          var errorMessage: string = error.message;
+            let alert = this.alertCtrl.create({
+              message: errorMessage,
+              buttons: [
+                {
+                  text: "Ok",
+                  role: 'cancel'
+                }
+              ]
+            });
+          alert.present();
+        });
+      });
+
+      this.loading = this.loadingCtrl.create({
+        dismissOnPageChange: true,
+      });
+      this.loading.present();
     }
   }
 }

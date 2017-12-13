@@ -1,0 +1,75 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Add Item</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <!-- Image.  User should be able to input a new image -->
+    <ion-buttons>
+        <button ion-button>
+          <ion-icon name="camera"></ion-icon>
+        </button>
+      </ion-buttons>
+    <!-- Barcode. User should be able to enter a barcode -->
+    <ion-buttons>
+        <button ion-button>
+          <ion-icon name="barcode"></ion-icon>
+        </button>
+      </ion-buttons>
+    <!-- Category_Id -->
+    <ion-item>
+        <ion-label>Category</ion-label>
+        <ion-input [(ngModel)]="item.categoryId" placeholder="Electronics"></ion-input>
+    </ion-item>
+
+    <!-- Item_Id -->
+    <ion-item>
+        <ion-label>UPC / ISBN</ion-label>
+        <ion-input [(ngModel)]="item.itemId" placeholder="887276234380"></ion-input>
+    </ion-item>
+
+    <!-- Name -->
+    <ion-item>
+        <ion-label>Name</ion-label>
+        <ion-input [(ngModel)]="item.name" placeholder="Samsung TV"></ion-input>
+    </ion-item>
+
+    <!-- Description -->
+    <ion-item>
+        <ion-label>Description</ion-label>
+        <ion-input [(ngModel)]="item.description" placeholder="55-inch 4K TV"></ion-input>
+    </ion-item>
+
+    <!-- Est. Value -->
+    <ion-item>
+        <ion-label>Est. Value</ion-label>
+        <ion-input [(ngModel)]="item.estValue" type="number" placeholder="$500.00"></ion-input>
+    </ion-item>
+
+    <!-- Quantity Owned -->
+    <ion-item>
+        <ion-label>Quantity</ion-label>
+        <ion-input [(ngModel)]="item.quantity" type="number" placeholder="2"></ion-input>
+    </ion-item>
+
+    <!-- input_date.  Use Date.now() -->
+    <ion-item>
+        <ion-label>Date</ion-label>
+        <ion-datetime displayFormat="MM/YYYY" pickerFormat="MM YYYY" [(ngModel)]="item.inputDate"></ion-datetime>
+      </ion-item>
+
+    <!-- Add Button -->
+    <ion-buttons>
+      <button ion-button round (click)="addItem(item)">Add</button>
+    </ion-buttons>
+
+        
+  </ion-list>
+
+</ion-content>
