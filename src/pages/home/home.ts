@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-// import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @IonicPage()
 @Component({
@@ -10,13 +10,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class HomePage {
 
   constructor(
-    // private afAuth: AngularFireAuth,
+    public afAuth: AngularFireAuth,
     public navCtrl: NavController, 
     public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     // this.afAuth.authState.subscribe(data => console.log(data))
+  }
+
+  logoutUser(): Promise<any> {
+    return this.afAuth.auth.signOut();
   }
 
 }

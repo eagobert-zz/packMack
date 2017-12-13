@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Item } from '../../models/item.model';
-import { InventoryListService } from '../../services/inventory-list.service';
+import { InventoryListService } from '../../providers/inventory-list';
 
 @IonicPage()
 @Component({
