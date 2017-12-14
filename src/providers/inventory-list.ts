@@ -7,7 +7,7 @@ import { Item } from './../models/item.model'
 
 export class InventoryListService {
 
-    private inventoryListRef = this.afDB.list<Item>('user-inventory')
+    private inventoryListRef = this.afDB.list<Item>('userInventory')
     
     constructor(private afDB: AngularFireDatabase){}
 
