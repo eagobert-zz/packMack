@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Item } from '../../models/item.model';
 import { InventoryListService } from '../../providers/inventory-list';
-// import { BarcodeScanner} from '@ionic-native/barcode-scanner';
+import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 
 @IonicPage()
 @Component({
@@ -10,6 +10,8 @@ import { InventoryListService } from '../../providers/inventory-list';
   templateUrl: 'add-inventory.html',
 })
 export class AddInventoryPage {
+
+  options: BarcodeScannerOptions;
 
   item: Item = {
         // image: undefined;
@@ -22,7 +24,7 @@ export class AddInventoryPage {
         inputDate: ''
   }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private inventory: InventoryListService) {
+  constructor(private barcode: BarcodeScanner, public navCtrl: NavController, public navParams: NavParams, private inventory: InventoryListService) {
   }
 
   ionViewDidLoad() {
@@ -35,6 +37,11 @@ export class AddInventoryPage {
       console.log(ref.key);
     });
 
+  }
+
+  async scanBarcode(){
+    const results = await this.barcode.scan();
+    console.log(results);
   }
 
 }
