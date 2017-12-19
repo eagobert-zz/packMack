@@ -28,7 +28,6 @@ export class AddInventoryPage {
     public loadingCtrl: LoadingController,
     // private inventory: InventoryListService
   ) {
-    this.scanData.text = '',
 
     this.addItemForm = formBuilder.group({
       // image: undefined;
@@ -36,8 +35,8 @@ export class AddInventoryPage {
       itemId: [''],
       name: [''],
       description: [''],
-      estValue: [undefined],
-      quantity: [undefined],
+      estValue: [''],
+      quantity: [''],
       inputDate: ['']
     })
   }
