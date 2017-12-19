@@ -12,24 +12,26 @@ import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/dat
 import { InventoryListService } from '../providers/inventory-list';
 import { AuthProvider } from '../providers/auth';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { FormsModule } from "@angular/forms";
 
 
 @NgModule({
   declarations: [
     MyApp,
-    WelcomePage,
+    WelcomePage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FirebaseConfig),
     AngularFireAuthModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    FormsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    WelcomePage,
+    WelcomePage
   ],
   providers: [
     StatusBar,

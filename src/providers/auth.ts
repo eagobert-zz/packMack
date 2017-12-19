@@ -18,7 +18,7 @@ loginUser(newEmail: string, newPassword: string): Promise<any>{
 
 signupUser(firstName: string, lastName: string, Email: string, Password: string): Promise<any>{
     return this.afAuth.auth.createUserWithEmailAndPassword(Email, Password).then(user => {
-        this.afDB.object(`/userProfile/${user.uid}`).set({firstName: firstName, lastName: lastName, Email: Email, Password: Password})
+        this.afDB.object(`/users/${user.uid}`).set({firstName: firstName, lastName: lastName, Email: Email, Password: Password})
     });
   }
 
