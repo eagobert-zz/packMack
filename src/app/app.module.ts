@@ -12,6 +12,7 @@ import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/dat
 import { InventoryListService } from '../providers/inventory-list';
 import { AuthProvider } from '../providers/auth';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { Camera } from '@ionic-native/camera';
 import { FormsModule } from "@angular/forms";
 
 
@@ -40,6 +41,7 @@ import { FormsModule } from "@angular/forms";
     AuthProvider,
     AngularFireDatabase,
     BarcodeScanner,
+    Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

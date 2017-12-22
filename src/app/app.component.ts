@@ -17,6 +17,7 @@ export class MyApp {
     
     const authObserver = afAuth.authState.subscribe(user => {
       if (user) {
+        console.log(user);
         this.rootPage = 'HomePage';
         authObserver.unsubscribe();
       } else {

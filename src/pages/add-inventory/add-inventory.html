@@ -12,7 +12,7 @@
     
     <!-- Image.  User should be able to input a new image -->
     <ion-buttons>
-        <button ion-button>
+        <button ion-button (click)="takePhoto()">
             <ion-icon name="camera"></ion-icon>
         </button>
     </ion-buttons>
@@ -32,6 +32,12 @@
 
     <!-- Begin Add Item Form -->
     <form [formGroup]="addItemForm" (submit)="addItem(item)" novalidate>
+    
+    <!-- Image -->
+    <ion-item>
+        <ion-label stacked>Image</ion-label>
+        <ion-input formControlName="image" type="text" ></ion-input>
+    </ion-item>
 
     <!-- Category_Id -->
     <ion-item>
