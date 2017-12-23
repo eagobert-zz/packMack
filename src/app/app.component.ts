@@ -17,12 +17,13 @@ export class MyApp {
     
     const authObserver = afAuth.authState.subscribe(user => {
       if (user) {
-        console.log(user);
         this.rootPage = 'HomePage';
         authObserver.unsubscribe();
+        console.log("User authenticated");
       } else {
         this.rootPage = WelcomePage;
         authObserver.unsubscribe();
+        console.log("User not authenticated");
       }
     })
     

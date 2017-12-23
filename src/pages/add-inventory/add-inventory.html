@@ -12,7 +12,7 @@
     
     <!-- Image.  User should be able to input a new image -->
     <ion-buttons>
-        <button ion-button (click)="takePhoto()">
+        <button ion-button (click)="capture()">
             <ion-icon name="camera"></ion-icon>
         </button>
     </ion-buttons>
@@ -30,13 +30,16 @@
         <p>Scanned Format: {{scanData.format}}</p>
     </div>
 
+
     <!-- Begin Add Item Form -->
     <form [formGroup]="addItemForm" (submit)="addItem(item)" novalidate>
     
     <!-- Image -->
     <ion-item>
+
         <ion-label stacked>Image</ion-label>
-        <ion-input formControlName="image" type="text" ></ion-input>
+        <ion-img [src]="captureDataUrl" *ngIf="captureDataUrl"></ion-img>
+        <!-- <ion-input formControlName="image" type="url" value={{}}></ion-input> -->
     </ion-item>
 
     <!-- Category_Id -->

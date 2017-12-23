@@ -9,7 +9,7 @@ import { Item } from '../../models/item.model';
 import { InventoryListService } from '../../providers/inventory-list';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { storage } from 'firebase';
+// import { storage } from 'firebase';
 
 
 @IonicPage()
@@ -23,13 +23,13 @@ export class AddInventoryPage {
   public loading: Loading;
   scanData: any = {};
 
-  base64Image: string;
+  captureDataUrl: string;
 
 
   constructor(
     public afDB: AngularFireDatabase,
     public afAuth: AngularFireAuth,
-    private camera: Camera,
+    public camera: Camera,
     private barcode: BarcodeScanner, 
     public navCtrl: NavController,
     public formBuilder: FormBuilder,
@@ -70,38 +70,23 @@ export class AddInventoryPage {
   }
 
   //Function to take photo.
-  takePhoto() {
-    try{
+  capture() {
+      
       const options: CameraOptions = {
-      quality: 50,
-      targetHeight: 600,
-      targetWidth: 600,
+      quality: 45,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
+      mediaType: this.camera.MediaType.PICTURE,
     }
 
     this.camera.getPicture(options).then((imageData) => {
 
-      const user = this.afAuth.auth.currentUser;
+      this.captureDataUrl = 'data:image/jpeg;' + imageData;
 
-      const base64Image = 'data:image/jpeg;base64' + imageData;
-  
-      const imageRef = storage().ref();
-      
-      imageRef.child(`/images/users/${user.uid}`).putString(base64Image, 'data_url').then(function(snapshot){
+    }, (err) => {
 
-        console.log('Uploaded a data_url string!');
-
-      });
-      
     });
 
-
-  }
-  catch(error){
-    console.error(error);
-  }
 }
 
 
