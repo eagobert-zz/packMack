@@ -86,10 +86,11 @@ export class AddInventoryPage {
       }
 
       const result = await this.camera.getPicture(options)
+
       const image = `data:image/jpeg;base64,${result}`;
-      // const filename = Math.floor(Date.now() / 1000);
-      const pictures = storage().ref('pictures/');
-      pictures.putString(image, 'data_url');
+      const photos = storage().ref('photos/');
+      photos.putString(image, 'data_url');
+
     }
     catch(error){
       console.log(error);
