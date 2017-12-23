@@ -23,10 +23,11 @@ export class AddInventoryPage {
   public loading: Loading;
   scanData: any = {};
 
-  captureDataUrl: string;
+  base64Image: string;
 
 
   constructor(
+
     public afDB: AngularFireDatabase,
     public afAuth: AngularFireAuth,
     public camera: Camera,
@@ -39,7 +40,7 @@ export class AddInventoryPage {
   ) {
 
     this.addItemForm = formBuilder.group({
-      image: [''],
+      imageUpload: [''],
       categoryId: [''],
       itemId: [''],
       name: [''],
@@ -74,16 +75,20 @@ export class AddInventoryPage {
       
       const options: CameraOptions = {
       quality: 45,
-      destinationType: this.camera.DestinationType.DATA_URL,
+      targetHeight: 300,
+      targetWidth: 300,
+      destinationType: this.camera.DestinationType.NATIVE_URI,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
     }
 
     this.camera.getPicture(options).then((imageData) => {
 
-      this.captureDataUrl = 'data:image/jpeg;' + imageData;
+      //Note:  worry about uploading video to firebase storage and then displaying after being added to a user's pack.  the unsafe url is too complicated to override here...
+      this.base64Image = 'data:image/jpeg;' + imageData;
 
     }, (err) => {
+      console.log(err);
 
     });
 
