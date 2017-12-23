@@ -12,10 +12,11 @@
     
     <!-- Image.  User should be able to input a new image -->
     <ion-buttons>
-        <button ion-button (click)="capture()">
+        <button ion-button (click)="takePhoto()">
             <ion-icon name="camera"></ion-icon>
         </button>
     </ion-buttons>
+    <img [src]="image" alt="No Photo Available">
 
     <!-- Barcode. User should be able to enter a barcode -->
     <ion-buttons>

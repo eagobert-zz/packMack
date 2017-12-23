@@ -9,7 +9,7 @@ import { Item } from '../../models/item.model';
 import { InventoryListService } from '../../providers/inventory-list';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-// import { storage } from 'firebase';
+import { storage } from 'firebase';
 
 
 @IonicPage()
@@ -23,14 +23,15 @@ export class AddInventoryPage {
   public loading: Loading;
   scanData: any = {};
 
-  base64Image: string;
+  image: string;
+
 
 
   constructor(
 
     public afDB: AngularFireDatabase,
     public afAuth: AngularFireAuth,
-    public camera: Camera,
+    private camera: Camera,
     private barcode: BarcodeScanner, 
     public navCtrl: NavController,
     public formBuilder: FormBuilder,
@@ -71,26 +72,28 @@ export class AddInventoryPage {
   }
 
   //Function to take photo.
-  capture() {
-      
+  async takePhoto(): Promise<any> {
+
+    try {
       const options: CameraOptions = {
-      quality: 45,
-      targetHeight: 300,
-      targetWidth: 300,
-      destinationType: this.camera.DestinationType.NATIVE_URI,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
+        quality: 50,
+        targetHeight: 500,
+        targetWidth: 500,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE
+    
+      }
+
+      const result = await this.camera.getPicture(options)
+      const image = `data:image/jpeg;base64,${result}`;
+      // const filename = Math.floor(Date.now() / 1000);
+      const pictures = storage().ref('pictures/');
+      pictures.putString(image, 'data_url');
     }
-
-    this.camera.getPicture(options).then((imageData) => {
-
-      //Note:  worry about uploading video to firebase storage and then displaying after being added to a user's pack.  the unsafe url is too complicated to override here...
-      this.base64Image = 'data:image/jpeg;' + imageData;
-
-    }, (err) => {
-      console.log(err);
-
-    });
+    catch(error){
+      console.log(error);
+    }
 
 }
 
