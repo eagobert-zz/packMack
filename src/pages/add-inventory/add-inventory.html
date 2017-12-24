@@ -12,11 +12,11 @@
     
     <!-- Image.  User should be able to input a new image -->
     <ion-buttons>
-        <button ion-button (click)="takePhoto()">
+        <button ion-button (click)="takePic()">
             <ion-icon name="camera"></ion-icon>
         </button>
     </ion-buttons>
-    <!-- <img [src]="image" *ngIf="image"> -->
+    <img src="{{ picUrl }}" />
 
     <!-- Barcode. User should be able to enter a barcode -->
     <ion-buttons>

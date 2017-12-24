@@ -8,7 +8,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Item } from '../../models/item.model';
 import { InventoryListService } from '../../providers/inventory-list';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Camera } from '@ionic-native/camera';
 import { storage } from 'firebase';
 
 
@@ -23,7 +23,11 @@ export class AddInventoryPage {
   public loading: Loading;
   scanData: any = {};
 
-  image: string;
+  // image: string;
+
+  picData: any
+  picUrl: any
+  picRef: any
 
 
 
@@ -39,6 +43,7 @@ export class AddInventoryPage {
     public loadingCtrl: LoadingController,
     private inventory: InventoryListService
   ) {
+    this.picRef=storage().ref('/');
 
     this.addItemForm = formBuilder.group({
       imageUpload: [''],
@@ -71,33 +76,60 @@ export class AddInventoryPage {
     return this.scanData;
   }
 
+  // Revised function to take photos...
+  takePic(){
+    this.camera.getPicture({
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      encodingType: this.camera.EncodingType.PNG,
+      correctOrientation: true,
+      saveToPhotoAlbum: true
+    }).then(imgData => {
+      this.picData = imgData;
+      this.uploadPic()
+    })
+  }
+
+  uploadPic(){
+    const user = this.afAuth.auth.currentUser;
+    const filename = Math.floor(Date.now() / 1000);
+    this.picRef.child(`${user.uid}/photos/${filename}.png`)
+    .putString(this.picData, 'base64', {contentType: 'image/png'})
+    }
+
+  downloadPic(){
+
+  }
+
+
   //Function to take photo.
-  async takePhoto(): Promise<any> {
+//   async takePhoto(): Promise<any> {
 
-    try {
-      const options: CameraOptions = {
-        quality: 50,
-        targetHeight: 500,
-        targetWidth: 500,
-        destinationType: this.camera.DestinationType.DATA_URL,
-        encodingType: this.camera.EncodingType.JPEG,
-        mediaType: this.camera.MediaType.PICTURE,
-        saveToPhotoAlbum: true
+//     try {
+//       const options: CameraOptions = {
+//         quality: 50,
+//         targetHeight: 500,
+//         targetWidth: 500,
+//         destinationType: this.camera.DestinationType.DATA_URL,
+//         encodingType: this.camera.EncodingType.JPEG,
+//         mediaType: this.camera.MediaType.PICTURE,
+//         saveToPhotoAlbum: true
     
-      }
+//       }
 
-      const result = await this.camera.getPicture(options)
+//       const result = await this.camera.getPicture(options)
 
-      const image = `data:image/jpeg;base64,${result}`;
-      const photos = storage().ref('photos/');
-      photos.putString(image, 'data_url');
+//       const image = `data:image/jpeg;base64,${result}`;
+//       const photos = storage().ref('photos/');
+//       photos.putString(image, 'data_url');
 
-    }
-    catch(error){
-      console.log(error);
-    }
+//     }
+//     catch(error){
+//       console.log(error);
+//     }
 
-}
+// }
 
 
   //End export
