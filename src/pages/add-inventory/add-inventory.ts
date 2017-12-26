@@ -25,9 +25,9 @@ export class AddInventoryPage {
 
   // image: string;
 
-  picData: any
-  picUrl: any
-  picRef: any
+  public picData: any;
+  public picUrl: any;
+  public picRef: any;
 
 
 
@@ -87,50 +87,24 @@ export class AddInventoryPage {
       saveToPhotoAlbum: true
     }).then(imgData => {
       this.picData = imgData;
-      this.uploadPic()
+      this.uploadPic();
     })
   }
 
   uploadPic(){
+    //Define variable for use
     const user = this.afAuth.auth.currentUser;
     const filename = Math.floor(Date.now() / 1000);
-    this.picRef.child(`${user.uid}/photos/${filename}.png`)
-    .putString(this.picData, 'base64', {contentType: 'image/png'})
-    }
 
-  downloadPic(){
-
-  }
-
-
-  //Function to take photo.
-//   async takePhoto(): Promise<any> {
-
-//     try {
-//       const options: CameraOptions = {
-//         quality: 50,
-//         targetHeight: 500,
-//         targetWidth: 500,
-//         destinationType: this.camera.DestinationType.DATA_URL,
-//         encodingType: this.camera.EncodingType.JPEG,
-//         mediaType: this.camera.MediaType.PICTURE,
-//         saveToPhotoAlbum: true
+    //Store image to firebase storage
+    const imageRef = this.picRef.child(`${user.uid}/photos/${filename}.png`);
     
-//       }
-
-//       const result = await this.camera.getPicture(options)
-
-//       const image = `data:image/jpeg;base64,${result}`;
-//       const photos = storage().ref('photos/');
-//       photos.putString(image, 'data_url');
-
-//     }
-//     catch(error){
-//       console.log(error);
-//     }
-
-// }
-
+    imageRef.putString(this.picData, 'base64', {contentType: 'image/png'})
+    .then((savedImage) => {
+      this.picUrl = savedImage.downloadURL;
+      console.log(this.picUrl);
+    })
+    }
 
   //End export
 }
