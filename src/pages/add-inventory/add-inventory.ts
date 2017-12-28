@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup,
 import { AngularFireDatabase } from "angularfire2/database";
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Item } from '../../models/item.model';
-import { InventoryListService } from '../../providers/inventory-list';
+import { ItemService } from '../../providers/inventory-list';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
 import { storage } from 'firebase';
@@ -21,9 +21,11 @@ export class AddInventoryPage {
 
   public addItemForm: FormGroup;
   public loading: Loading;
+
   scanData: any = {};
 
-  // image: string;
+  item: any = {};
+
 
   public picData: any;
   public picUrl: any;
@@ -41,12 +43,12 @@ export class AddInventoryPage {
     public formBuilder: FormBuilder,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
-    private inventory: InventoryListService
+    private inventory: ItemService
   ) {
     this.picRef=storage().ref('/');
 
     this.addItemForm = formBuilder.group({
-      imageUpload: [''],
+      imageUrl: [''],
       categoryId: [''],
       itemId: [''],
       name: [''],
@@ -62,9 +64,18 @@ export class AddInventoryPage {
   }
 
   addItem(item: Item) {
-    this.inventory.addItem(item).then(ref => {
-      this.navCtrl.setRoot('HomePage')
-      console.log(ref.key);
+    return this.inventory.addItem(
+      this.addItemForm.value.imageUrl,
+      this.addItemForm.value.categoryId,
+      this.addItemForm.value.itemId,
+      this.addItemForm.value.name,
+      this.addItemForm.value.description,
+      this.addItemForm.value.estValue,
+      this.addItemForm.value.quantity,
+      this.addItemForm.value.inputDate 
+    )
+    .then((item) => {
+      console.log("Item #: " + item.key + " has been stored.");
     });
 
   }
@@ -76,10 +87,12 @@ export class AddInventoryPage {
     return this.scanData;
   }
 
-  // Revised function to take photos...
+  // Function to take photos...
   takePic(){
     this.camera.getPicture({
       quality: 100,
+      targetHeight: 300,
+      targetWidth: 300,
       destinationType: this.camera.DestinationType.DATA_URL,
       sourceType: this.camera.PictureSourceType.CAMERA,
       encodingType: this.camera.EncodingType.PNG,
@@ -91,6 +104,7 @@ export class AddInventoryPage {
     })
   }
 
+  //Function to upload to firebase and return valid url
   uploadPic(){
     //Define variable for use
     const user = this.afAuth.auth.currentUser;

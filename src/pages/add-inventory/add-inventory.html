@@ -10,14 +10,8 @@
 
 <ion-content padding>
     
-    <!-- Image.  User should be able to input a new image -->
-    <ion-buttons>
-        <button ion-button (click)="takePic()">
-            <ion-icon name="camera"></ion-icon>
-        </button>
-    </ion-buttons>
-    <img src="{{ picUrl }}" />
-
+    
+    
     <!-- Barcode. User should be able to enter a barcode -->
     <ion-buttons>
         <button ion-button (click)="scanBarcode()">
@@ -25,21 +19,25 @@
         </button>
     </ion-buttons>
     
-    <!-- Barcode Test Results -->
-    <div *ngIf="scanData">
-        <p>Scanned Text: {{scanData.text}}</p>
-        <p>Scanned Format: {{scanData.format}}</p>
-    </div>
-
+    <!-- Image.  User should be able to input a new image -->
+    <ion-buttons>
+            <button ion-button (click)="takePic()">
+                <ion-icon name="camera"></ion-icon>
+            </button>
+        </ion-buttons>
+    <!-- Image Preview -->
+    <img src="{{ picUrl }}" />
+    
 
     <!-- Begin Add Item Form -->
     <form [formGroup]="addItemForm" (submit)="addItem(item)" novalidate>
     
     <!-- Image -->
+    
     <ion-item>
-
-        <ion-label stacked>Image</ion-label>
-        <ion-input formControlName="imageUpload" type="url" value=""></ion-input>
+        <ion-label stacked> Camera
+        </ion-label>
+        <ion-input formControlName="imageUrl" type="text" value="{{picUrl}}"></ion-input>
     </ion-item>
 
     <!-- Category_Id -->

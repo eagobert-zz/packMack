@@ -9,7 +9,7 @@ import { FirebaseConfig } from '../app/app.firebase.config';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
-import { InventoryListService } from '../providers/inventory-list';
+import { ItemService } from '../providers/inventory-list';
 import { AuthProvider } from '../providers/auth';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
@@ -37,7 +37,7 @@ import { FormsModule } from "@angular/forms";
   providers: [
     StatusBar,
     SplashScreen,
-    InventoryListService,
+    ItemService,
     AuthProvider,
     AngularFireDatabase,
     BarcodeScanner,
