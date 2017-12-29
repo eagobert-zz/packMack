@@ -14,12 +14,14 @@ import { AuthProvider } from '../providers/auth';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
 import { FormsModule } from "@angular/forms";
+import { HomePage } from '../pages/home/home';
 
 
 @NgModule({
   declarations: [
     MyApp,
-    WelcomePage
+    WelcomePage,
+    HomePage
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,8 @@ import { FormsModule } from "@angular/forms";
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    WelcomePage
+    WelcomePage,
+    HomePage
   ],
   providers: [
     StatusBar,
