@@ -76,6 +76,7 @@ export class AddInventoryPage {
     )
     .then((item) => {
       console.log("Item #: " + item.key + " has been stored.");
+      this.addItemForm.reset();
     });
 
   }
