@@ -27,13 +27,9 @@ export class SignupPage {
     public loadingCtrl: LoadingController 
     ) {
 
-      // this.afAuth.authState.subscribe(userData => {
-      //   console.log(userData);
-      // })
-
       this.signupForm = formBuilder.group({
-        firstName: ['', ],
-        lastName: ['', ],
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
         email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
         password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
       });

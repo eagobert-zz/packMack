@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AngularFireAuth } from 'angularfire2/auth';
-import firebase from 'firebase/app';
+// import firebase from 'firebase/app';
 import { AngularFireDatabase } from "angularfire2/database";
 
 
@@ -18,7 +18,7 @@ loginUser(newEmail: string, newPassword: string): Promise<any>{
 
 signupUser(firstName: string, lastName: string, Email: string, Password: string): Promise<any>{
     return this.afAuth.auth.createUserWithEmailAndPassword(Email, Password).then(user => {
-        this.afDB.object(`/userProfile/${user.uid}`).set({firstName: firstName, lastName: lastName, Email: Email, Password: Password})
+        this.afDB.object(`/users/${user.uid}`).set({firstName: firstName, lastName: lastName, Email: Email, Password: Password})
     });
   }
 

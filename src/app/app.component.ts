@@ -14,13 +14,16 @@ export class MyApp {
   rootPage:any;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, afAuth: AngularFireAuth) {
+    
     const authObserver = afAuth.authState.subscribe(user => {
       if (user) {
         this.rootPage = 'HomePage';
-        // authObserver.unsubscribe();
+        authObserver.unsubscribe();
+        console.log("User authenticated");
       } else {
         this.rootPage = WelcomePage;
-        // authObserver.unsubscribe();
+        authObserver.unsubscribe();
+        console.log("User not authenticated");
       }
     })
     

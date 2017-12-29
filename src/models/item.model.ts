@@ -1,7 +1,7 @@
 export interface Item {
-    // image: undefined;
+    imageUrl: string;
     categoryId: string;
-    itemId: string;
+    itemId: number;
     name: string;
     description: string;
     estValue: number;
