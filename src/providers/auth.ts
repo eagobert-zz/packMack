@@ -7,6 +7,8 @@ import { AngularFireDatabase } from "angularfire2/database";
 @Injectable()
 
 export class AuthProvider {
+
+
     
     constructor(
         public afAuth: AngularFireAuth,
@@ -23,6 +25,7 @@ signupUser(firstName: string, lastName: string, Email: string, Password: string)
   }
 
   logoutUser(): Promise<any> {
+
     return this.afAuth.auth.signOut();
   }
 

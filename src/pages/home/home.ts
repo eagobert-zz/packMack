@@ -17,11 +17,12 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    // this.afAuth.authState.subscribe(data => console.log(data))
+   console.log("ionViewDidLoad HomePage")
   }
 
   logoutUser(): Promise<any> {
     return this.afAuth.auth.signOut().then(() => {
+      
       this.navCtrl.push(WelcomePage)
     });
   }

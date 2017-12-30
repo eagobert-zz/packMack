@@ -9,33 +9,34 @@ import { FirebaseConfig } from '../app/app.firebase.config';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
-import { ItemService } from '../providers/inventory-list';
 import { AuthProvider } from '../providers/auth';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
 import { FormsModule } from "@angular/forms";
-import { HomePage } from '../pages/home/home';
+import { ItemService } from '../providers/item-service';
+import { HttpModule } from '@angular/http';
+
 
 
 @NgModule({
   declarations: [
     MyApp,
     WelcomePage,
-    HomePage
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FirebaseConfig),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     FormsModule
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     WelcomePage,
-    HomePage
   ],
   providers: [
     StatusBar,

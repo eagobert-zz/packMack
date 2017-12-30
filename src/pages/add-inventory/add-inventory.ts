@@ -6,10 +6,11 @@ import { FormBuilder, FormGroup,
 import { AngularFireDatabase } from "angularfire2/database";
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Item } from '../../models/item.model';
-import { ItemService } from '../../providers/inventory-list';
+import { ItemService } from '../../providers/item-service';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
 import { storage } from 'firebase';
+import { Http } from '@angular/http';
 
 
 @IonicPage()
@@ -34,7 +35,7 @@ export class AddInventoryPage {
 
 
   constructor(
-
+    private http: Http,
     public afDB: AngularFireDatabase,
     public afAuth: AngularFireAuth,
     private camera: Camera,
@@ -119,6 +120,11 @@ export class AddInventoryPage {
       this.picUrl = savedImage.downloadURL;
       console.log(this.picUrl);
     })
+    }
+
+  //Search by UPC to get item name and description
+  getItem(){
+  this.http.get(`http://api.walmartlabs.com/v1/items?apiKey=48h2dej9htyvzqzs6ab5rc8p&upc=${this.scanData.text},`)
     }
 
   //End export

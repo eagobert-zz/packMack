@@ -14,8 +14,10 @@ export class ItemService {
     private itemListRef = this.afDB.list<Item>(`items/${this.user.uid}`)
 
     
-    constructor(private afDB: AngularFireDatabase,
-    private afAuth: AngularFireAuth){}
+    constructor(
+        private afDB: AngularFireDatabase,
+        private afAuth: AngularFireAuth){}
+
 
     getItemList() {
         return this.itemListRef;
