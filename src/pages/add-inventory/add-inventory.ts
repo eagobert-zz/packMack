@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, LoadingController, Loading, AlertController } from 'ionic-angular';
-import { FormBuilder, FormGroup, 
-  // Validators
- } from '@angular/forms';
+import { FormBuilder, FormGroup, // Validators
+} from '@angular/forms';
 import { AngularFireDatabase } from "angularfire2/database";
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Item } from '../../models/item.model';
@@ -10,7 +9,9 @@ import { ItemService } from '../../providers/item-service';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
 import { storage } from 'firebase';
-import { Http } from '@angular/http';
+import { HTTP } from '@ionic-native/http';
+
+
 
 
 @IonicPage()
@@ -24,8 +25,10 @@ export class AddInventoryPage {
   public loading: Loading;
 
   scanData: any = {};
-
   item: any = {};
+  products: any = {};
+  productName: any = "";
+  productMsrp: any = "";
 
 
   public picData: any;
@@ -35,16 +38,19 @@ export class AddInventoryPage {
 
 
   constructor(
-    private http: Http,
+    // public http: HttpClient,
+    private http: HTTP,
     public afDB: AngularFireDatabase,
     public afAuth: AngularFireAuth,
     private camera: Camera,
     private barcode: BarcodeScanner, 
+    // private toast: Toast,
     public navCtrl: NavController,
     public formBuilder: FormBuilder,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
-    private inventory: ItemService
+    private inventory: ItemService,
+    // private dataService: DataServiceProvider
   ) {
     this.picRef=storage().ref('/');
 
@@ -83,10 +89,36 @@ export class AddInventoryPage {
   }
 
   // Function to get barcode data.  Note: to use async and await, in tsconfig.json "target" must be set to ES6 to work
-  async scanBarcode(scanData){
-    this.scanData = await this.barcode.scan();
-    console.log(this.scanData)
-    return this.scanData;
+  scanBarcode(){
+ 
+    this.barcode.scan().then((barcodeData) => {
+      this.scanData = barcodeData;
+      console.log("Scanned Barcode #: " + this.scanData.text);
+      return this.scanData;
+    
+    }).then((scanData) => {
+            
+      console.log(`http://api.walmartlabs.com/v1/items?apiKey=48h2dej9htyvzqzs6ab5rc8p&upc=${this.scanData.text}`)
+
+
+
+      this.http.get(`http://api.walmartlabs.com/v1/items?apiKey=48h2dej9htyvzqzs6ab5rc8p&upc=${this.scanData.text}`, {}, {})
+      .then((data) => {
+        this.productName = JSON.parse(data.data).items[0].name;
+        this.productMsrp = JSON.parse(data.data).items[1].msrp;
+
+        console.log(data.status);
+        console.log(data.data); // data received by server
+        console.log(data.headers);
+      })
+      .catch((error) =>{
+        console.log(error.status);
+        console.log(error.error); // error message as string
+        console.log(error.headers);
+      });
+  
+
+    });
   }
 
   // Function to take photos...
@@ -103,6 +135,7 @@ export class AddInventoryPage {
     }).then(imgData => {
       this.picData = imgData;
       this.uploadPic();
+  
     })
   }
 
@@ -122,10 +155,7 @@ export class AddInventoryPage {
     })
     }
 
-  //Search by UPC to get item name and description
-  getItem(){
-  this.http.get(`http://api.walmartlabs.com/v1/items?apiKey=48h2dej9htyvzqzs6ab5rc8p&upc=${this.scanData.text},`)
-    }
+    
 
   //End export
 }

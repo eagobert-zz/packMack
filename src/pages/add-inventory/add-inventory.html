@@ -45,9 +45,12 @@
         <ion-label stacked>Category</ion-label>
         <ion-select formControlName="categoryId" type="text">
             <ion-option>Electronics</ion-option>
-            <ion-option>Movies</ion-option>
+            <ion-option>Movies-DVD</ion-option>
+            <ion-option>Movies-Blu-Ray</ion-option>
+            <ion-option>Movies-4K</ion-option>
             <ion-option>Video Games</ion-option>
-            <ion-option>Books</ion-option>
+            <ion-option>Books-Hardback</ion-option>
+            <ion-option>Books-Paperback</ion-option>
             <ion-option>Furnishings</ion-option>
         </ion-select>
     </ion-item>
@@ -61,7 +64,7 @@
     <!-- Name -->
     <ion-item>
         <ion-label stacked>Name</ion-label>
-        <ion-input formControlName="name" type="text"></ion-input>
+        <ion-input formControlName="name" type="text" value={{productName}}></ion-input>
     </ion-item>
 
     <!-- Description -->
@@ -73,7 +76,7 @@
     <!-- Est. Value -->
     <ion-item>
         <ion-label stacked>Est. Value</ion-label>
-        <ion-input formControlName="estValue" type="number"></ion-input>
+        <ion-input formControlName="estValue" type="number" value={{productMsrp}}></ion-input>
     </ion-item>
 
     <!-- Quantity Owned -->

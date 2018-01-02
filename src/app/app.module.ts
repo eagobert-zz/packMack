@@ -12,9 +12,13 @@ import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/dat
 import { AuthProvider } from '../providers/auth';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Camera } from '@ionic-native/camera';
+import { Toast } from '@ionic-native/toast';
 import { FormsModule } from "@angular/forms";
 import { ItemService } from '../providers/item-service';
-import { HttpModule } from '@angular/http';
+// import { DataServiceProvider } from '../providers/data-service';
+// import {HttpModule} from'@angular/http'; 
+// import { HttpClientModule } from '@angular/common/http';
+import { HTTP } from '@ionic-native/http'
 
 
 
@@ -25,7 +29,8 @@ import { HttpModule } from '@angular/http';
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+    // HttpClientModule,
+    // HttpModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FirebaseConfig),
     AngularFireAuthModule,
@@ -46,7 +51,10 @@ import { HttpModule } from '@angular/http';
     AngularFireDatabase,
     BarcodeScanner,
     Camera,
+    Toast,
+    HTTP,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
+    // DataServiceProvider
   ]
 })
 export class AppModule {}
