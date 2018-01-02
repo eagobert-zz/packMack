@@ -105,7 +105,7 @@ export class AddInventoryPage {
       this.http.get(`http://api.walmartlabs.com/v1/items?apiKey=48h2dej9htyvzqzs6ab5rc8p&upc=${this.scanData.text}`, {}, {})
       .then((data) => {
         this.productName = JSON.parse(data.data).items[0].name;
-        this.productMsrp = JSON.parse(data.data).items[1].msrp;
+        this.productMsrp = JSON.parse(data.data).items[0].msrp;
 
         console.log(data.status);
         console.log(data.data); // data received by server
