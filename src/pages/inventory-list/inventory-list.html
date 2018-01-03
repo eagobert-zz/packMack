@@ -8,16 +8,25 @@
   
   
   <ion-content padding>
-    <ion-list [virtualScroll]="ItemService$ | async ">
+    <ion-list [virtualScroll]="ItemService$ | async" approxItemHeight="50px" approxItemWidth="150px">
  
       <ion-card *virtualItem="let item">
-        <ion-thumbnail>
-          <img src={{item.imageUrl}}>
-      </ion-thumbnail>
-      <ion-card-content>
-        {{item.name}}
-        {{item.categoryId}}
-        {{item.description}}
+       <ion-thumbnail style="height: 40px; width: 110px"item-left>
+          <ion-img src={{item.imageUrl}}></ion-img>
+        </ion-thumbnail>
+     
+      <ion-card-content item-end>
+        <ion-card-title>
+          {{item.name}}
+        </ion-card-title>
+        <div>
+        <p>
+          {{item.categoryId}}
+        </p>
+        <p>
+          {{item.description}}
+        </p>
+      </div>
       </ion-card-content>
 
       </ion-card>
