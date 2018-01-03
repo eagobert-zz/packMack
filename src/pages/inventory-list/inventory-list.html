@@ -1,12 +1,26 @@
 <ion-header>
   
     <ion-navbar>
-      <ion-title>inventoryList</ion-title>
+      <ion-title>My Pack</ion-title>
     </ion-navbar>
   
   </ion-header>
   
   
   <ion-content padding>
+    <ion-list [virtualScroll]="ItemService$ | async ">
+ 
+      <ion-card *virtualItem="let item">
+        <ion-thumbnail>
+          <img src={{item.imageUrl}}>
+      </ion-thumbnail>
+      <ion-card-content>
+        {{item.name}}
+        {{item.categoryId}}
+        {{item.description}}
+      </ion-card-content>
+
+      </ion-card>
+    </ion-list>
   
   </ion-content>
