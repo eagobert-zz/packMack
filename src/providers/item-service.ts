@@ -10,7 +10,7 @@ import { AngularFireAuth } from "angularfire2/auth";
 export class ItemService {
 
     //Create reference to firebase database.  With model type "Item"
-    private user = this.afAuth.auth.currentUser;
+    user = this.afAuth.auth.currentUser;
     private itemListRef = this.afDB.list<Item>(`items/${this.user.uid}`)
 
     
@@ -34,7 +34,7 @@ export class ItemService {
             estValue: estValue,
             quantity: quantity,
             inputDate: inputDate 
-        });
+        }); 
     }
 
 }
