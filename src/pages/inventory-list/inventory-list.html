@@ -1,12 +1,38 @@
 <ion-header>
   
     <ion-navbar>
-      <ion-title>inventoryList</ion-title>
-    </ion-navbar>
+      <ion-title>My Pack</ion-title>
+
+      <ion-buttons end>
+          <button navPush="AddInventoryPage" ion-button>
+            <ion-icon name="add-circle"></ion-icon>
+          </button>
+        </ion-buttons>
+      </ion-navbar>
   
   </ion-header>
   
   
-  <ion-content padding>
+  <ion-content>
+    <ion-list>
+      <ion-card *ngFor="let item of ItemService$ | async">
+        <ion-row text-wrap>
+          <ion-col>
+            <ion-thumbnail item-start>
+            <img src={{item.imageUrl}} item-start>
+          </ion-thumbnail>
+          </ion-col>
+          <ion-col>
+      <ion-card-content>
+        <ion-card-title>
+          {{item.name}}
+        </ion-card-title>
+
+          {{item.description}}
+      </ion-card-content>
+    </ion-col>
+    </ion-row>
+      </ion-card>
+    </ion-list>
   
   </ion-content>

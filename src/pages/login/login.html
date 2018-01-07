@@ -11,6 +11,7 @@
 
   <form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
     <ion-list>
+      <div padding>
       <ion-item>
         <ion-label>Email</ion-label>
         <ion-input #email formControlName="email" type="email" [class.invalid]="!loginForm.controls.email.valid && loginForm.controls.email.dirty"></ion-input>
@@ -19,7 +20,7 @@
       <ion-item class ="error-message" *ngIf="!loginForm.controls.email.valid && loginForm.controls.email.dirty">
         <p>Please enter a valid email.</p>
       </ion-item>
-
+    
       <ion-item>
           <ion-label>Password</ion-label>
           <ion-input #password formControlName="password" type="password" [class.invalid]="!loginForm.controls.password.valid && loginForm.controls.password.dirty"></ion-input>
@@ -28,9 +29,10 @@
       <ion-item class ="error-message" *ngIf="!loginForm.controls.password.valid && loginForm.controls.password.dirty">
           <p>Your password needs 6 characters.</p>
         </ion-item>
-
-
-      <button ion-button round type="submit">Log In</button>
+      </div>
+      <div padding>
+      <button ion-button round full type="submit">Log In</button>
+    </div>
     </ion-list>
   </form>
 

@@ -8,54 +8,73 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content no-padding>
     
-    
-    
-    <!-- Barcode. User should be able to enter a barcode -->
-    <ion-buttons>
-        <button ion-button (click)="scanBarcode()">
-            <ion-icon name="barcode"></ion-icon>
-        </button>
-    </ion-buttons>
-    
-    <!-- Image.  User should be able to input a new image -->
+        <ion-card *ngIf='picUrl'>
+            <ion-card-header>
+                <img src="{{ picUrl }}" *ngIf='picUrl'/>
+            </ion-card-header>
+            <ion-card-content>
+            <!-- Image Preview -->
+        </ion-card-content>
+        </ion-card>
+
+    <!-- Begin Add Item Form -->
+    <form [formGroup]="addItemForm" (submit)="addItem(item)" novalidate ion-grid>
+    <ion-row>
+        <ion-col col-2>
+                <!-- Image.  User should be able to input a new image -->
     <ion-buttons>
             <button ion-button (click)="takePic()">
                 <ion-icon name="camera"></ion-icon>
             </button>
         </ion-buttons>
-    <!-- Image Preview -->
-    <img src="{{ picUrl }}" *ngIf='picUrl'/>
-    
-
-    <!-- Begin Add Item Form -->
-    <form [formGroup]="addItemForm" (submit)="addItem(item)" novalidate>
-    
+        </ion-col>
     <!-- Image -->
-    
-    <ion-item>
-        <ion-label stacked> Camera
-        </ion-label>
-        <ion-input formControlName="imageUrl" type="text" value="{{picUrl}}"></ion-input>
-    </ion-item>
-
+    <ion-col col-8>
+        <ion-item>
+            <ion-label stacked> Camera
+            </ion-label>
+            <ion-input formControlName="imageUrl" type="text" value="{{picUrl}}"></ion-input>
+        </ion-item>
+    </ion-col>
+</ion-row>
     <!-- Category_Id -->
     <ion-item>
         <ion-label stacked>Category</ion-label>
-        <ion-input formControlName="categoryId" type="text"></ion-input>
+        <ion-select formControlName="categoryId" type="text">
+            <ion-option>Electronics</ion-option>
+            <ion-option>Movies-DVD</ion-option>
+            <ion-option>Movies-Blu-Ray</ion-option>
+            <ion-option>Movies-4K</ion-option>
+            <ion-option>Video Games</ion-option>
+            <ion-option>Books-Hardback</ion-option>
+            <ion-option>Books-Paperback</ion-option>
+            <ion-option>Furnishings</ion-option>
+        </ion-select>
     </ion-item>
+<ion-row>
+    <ion-col col-2>
+    <!-- Barcode. User should be able to enter a barcode -->
+    <ion-buttons>
+            <button ion-button (click)="scanBarcode()">
+                <ion-icon name="barcode"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-col>
 
+    <ion-col col-9>
     <!-- Item_Id -->
     <ion-item>
         <ion-label stacked>UPC / ISBN</ion-label>
         <ion-input formControlName="itemId" type="number" value={{scanData.text}}></ion-input>
     </ion-item>
-
+    </ion-col>
+</ion-row>
     <!-- Name -->
     <ion-item>
         <ion-label stacked>Name</ion-label>
-        <ion-input formControlName="name" type="text"></ion-input>
+        <ion-input formControlName="name" type="text" value={{productName}}></ion-input>
     </ion-item>
 
     <!-- Description -->
@@ -67,7 +86,7 @@
     <!-- Est. Value -->
     <ion-item>
         <ion-label stacked>Est. Value</ion-label>
-        <ion-input formControlName="estValue" type="number"></ion-input>
+        <ion-input formControlName="estValue" type="number" value={{productMsrp}}></ion-input>
     </ion-item>
 
     <!-- Quantity Owned -->
@@ -81,10 +100,10 @@
         <ion-label stacked>Date</ion-label>
         <ion-datetime formControlName="inputDate" displayFormat="MM/YYYY" pickerFormat="MM YYYY"></ion-datetime>
       </ion-item>
-
+   
     <!-- Add Button -->
     <ion-buttons>
-      <button ion-button round type="submit">Add</button>
+      <button ion-button round full type="submit">Add</button>
     </ion-buttons>
 </form>
 
